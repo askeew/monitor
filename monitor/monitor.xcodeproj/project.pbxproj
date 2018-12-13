@@ -20,6 +20,8 @@
 		BC39049421BF0B5E00451CF0 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC39049321BF0B5E00451CF0 /* AppTests.swift */; };
 		BC3904A221BF0B6F00451CF0 /* DomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3904A121BF0B6F00451CF0 /* DomainTests.swift */; };
 		BC3904B021BF0B8600451CF0 /* RepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3904AF21BF0B8600451CF0 /* RepoTests.swift */; };
+		BC3904BA21C1B4D700451CF0 /* MonitorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3904B921C1B4D700451CF0 /* MonitorVM.swift */; };
+		BC3904BD21C2C66A00451CF0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3904BB21C2C5FC00451CF0 /* Extensions.swift */; };
 		BCBBF7F721BEF20900295FB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBBF7F621BEF20900295FB6 /* AppDelegate.swift */; };
 		BCBBF7F921BEF20900295FB6 /* MonitorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBBF7F821BEF20900295FB6 /* MonitorVC.swift */; };
 		BCBBF7FC21BEF20900295FB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCBBF7FA21BEF20900295FB6 /* Main.storyboard */; };
@@ -99,6 +101,8 @@
 		BC3904AD21BF0B8600451CF0 /* RestAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3904AF21BF0B8600451CF0 /* RepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTests.swift; sourceTree = "<group>"; };
 		BC3904B121BF0B8600451CF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC3904B921C1B4D700451CF0 /* MonitorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorVM.swift; sourceTree = "<group>"; };
+		BC3904BB21C2C5FC00451CF0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCBBF7F321BEF20800295FB6 /* monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = monitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBBF7F621BEF20900295FB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCBBF7F821BEF20900295FB6 /* MonitorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorVC.swift; sourceTree = "<group>"; };
@@ -242,8 +246,10 @@
 		BCBBF7F521BEF20900295FB6 /* monitor */ = {
 			isa = PBXGroup;
 			children = (
+				BC3904BB21C2C5FC00451CF0 /* Extensions.swift */,
 				BCBBF7F621BEF20900295FB6 /* AppDelegate.swift */,
 				BCBBF7F821BEF20900295FB6 /* MonitorVC.swift */,
+				BC3904B921C1B4D700451CF0 /* MonitorVM.swift */,
 				BCBBF7FA21BEF20900295FB6 /* Main.storyboard */,
 				BCBBF7FD21BEF20C00295FB6 /* Assets.xcassets */,
 				BCBBF7FF21BEF20C00295FB6 /* LaunchScreen.storyboard */,
@@ -534,8 +540,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC3904BA21C1B4D700451CF0 /* MonitorVM.swift in Sources */,
 				BCBBF7F921BEF20900295FB6 /* MonitorVC.swift in Sources */,
 				BCBBF7F721BEF20900295FB6 /* AppDelegate.swift in Sources */,
+				BC3904BD21C2C66A00451CF0 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

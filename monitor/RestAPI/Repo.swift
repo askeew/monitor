@@ -9,7 +9,7 @@
 import Foundation
 import Domain
 
-protocol CRUD {
+public protocol CRUD {
     func getAll() -> [ServiceItem]
     func add(name: String, url: URL) -> ServiceItem
     func delete(id: Identifier<ServiceItem>)
@@ -19,12 +19,15 @@ public class UserDefaultsRepo: CRUD {
 
     private let key = "serviceItems"
 
-    func getAll() -> [ServiceItem] {
+    public init() {
+    }
+
+    public func getAll() -> [ServiceItem] {
         guard let item: [ServiceItem]? = readValue(key: key), let serviceItem = item else { return [] }
         return serviceItem
     }
 
-    func add(name: String, url: URL) -> ServiceItem {
+    public func add(name: String, url: URL) -> ServiceItem {
         let item = ServiceItem(id: Identifier<ServiceItem>(UUID().uuidString),
                                name: name,
                                url: url)
@@ -34,7 +37,7 @@ public class UserDefaultsRepo: CRUD {
         return item
     }
 
-    func delete(id: Identifier<ServiceItem>) {
+    public func delete(id: Identifier<ServiceItem>) {
         var persistedData = getAll()
         persistedData.removeAll { $0.id == id }
         persistValue(value: persistedData, forKey: key)
@@ -54,11 +57,11 @@ public class InMemoryRepo: CRUD {
 
     var data = [ServiceItem]()
 
-    func getAll() -> [ServiceItem] {
+    public func getAll() -> [ServiceItem] {
         return data
     }
 
-    func add(name: String, url: URL) -> ServiceItem{
+    public func add(name: String, url: URL) -> ServiceItem{
         let id = Identifier<ServiceItem>(UUID().uuidString)
         let newItem = ServiceItem(id: id,
                                   name: name,
@@ -67,7 +70,7 @@ public class InMemoryRepo: CRUD {
         return newItem
     }
 
-    func delete(id: Identifier<ServiceItem>) {
+    public func delete(id: Identifier<ServiceItem>) {
         data.removeAll { $0.id == id }
     }
 }
