@@ -12,14 +12,12 @@ import UIKit
 class MonitorTableCell: UITableViewCell {
 
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var lastChecked: UILabel!
     @IBOutlet weak var statusIcon: UIImageView!
     @IBOutlet weak var url: UILabel!
     private var onSelect: (() -> Void)?
 
     public func newModel(model: MonitorTableCellVM) {
         name.attributedText = model.name
-        lastChecked.attributedText = model.timeChecked
         statusIcon.image = model.icon
         url.attributedText = model.url
         url.isHidden = true

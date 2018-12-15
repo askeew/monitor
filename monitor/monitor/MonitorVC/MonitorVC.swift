@@ -43,12 +43,34 @@ class MonitorVC: UITableViewController {
     }
 
     private func setupTable() {
-        //TODO put 'last-checked-time as table-view-footer' instead of in cell
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MonitorTableCell", bundle: nil), forCellReuseIdentifier: "MonitorTableCell")
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = 50
+
+    }
+
+    private func updateTableViewFooter(with time: Date) {
+        let dateText = "Last checked: \(time.localizedDescription(dateStyle: .none, timeStyle: .medium))"
+
+        if let footerViewWithDate = tableView.tableFooterView, let labelView = footerViewWithDate.subviews.first as? UILabel {
+            labelView.text = dateText
+        } else {
+            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+            headerView.backgroundColor = .clear
+
+            let labelView = UILabel(frame: .zero)
+            labelView.translatesAutoresizingMaskIntoConstraints = false
+            labelView.text = dateText
+
+            headerView.addSubview(labelView)
+            NSLayoutConstraint.activate([
+                labelView.topAnchor.constraint(equalTo: headerView.topAnchor),
+                labelView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor)
+                ])
+            tableView.tableFooterView = headerView
+        }
     }
 
     @objc private func statusCheck() {
@@ -123,9 +145,7 @@ extension MonitorVC {
         guard let model = viewModel.services[safe: indexPath.row] else { return UITableViewCell() }
         let cellVM = MonitorTableCellVM(item: model) { [weak self] in
             let alertController = UIAlertController(title: "URL", message: model.serviceItem.url.absoluteString, preferredStyle: .alert)
-
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
             self?.present(alertController, animated: true)
         }
         cell.newModel(model: cellVM)
@@ -142,9 +162,9 @@ extension MonitorVC {
 }
 
 extension MonitorVC: RefreshDelegate {
-    func refresh() {
+    func refresh(time: Date) {
         tableView.reloadData()
+        updateTableViewFooter(with: time)
         refreshControl?.endRefreshing()
     }
 }
-

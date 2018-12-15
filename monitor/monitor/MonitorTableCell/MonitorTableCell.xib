@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XRL-VS-6Ve">
-                                <rect key="frame" x="135" y="0.0" width="302" height="222.5"/>
+                                <rect key="frame" x="184.5" y="0.0" width="252.5" height="222.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="url" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qr5-Eq-Jjz" userLabel="url">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="222.5"/>
@@ -35,14 +35,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="12.31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxI-gH-GNZ" userLabel="lastChecked">
-                                        <rect key="frame" x="30" y="0.0" width="39.5" height="222.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="up" translatesAutoresizingMaskIntoConstraints="NO" id="VCk-lV-1yh">
-                                        <rect key="frame" x="79.5" y="0.0" width="222.5" height="222.5"/>
+                                        <rect key="frame" x="30" y="0.0" width="222.5" height="222.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" priority="750" constant="50" id="INu-Cf-N8P"/>
                                             <constraint firstAttribute="width" secondItem="VCk-lV-1yh" secondAttribute="height" multiplier="1:1" id="WNw-c5-RLe"/>
@@ -62,7 +56,6 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="lastChecked" destination="oxI-gH-GNZ" id="0NF-zj-x0e"/>
                 <outlet property="name" destination="gw5-ER-Yz7" id="pAh-oh-bNT"/>
                 <outlet property="statusIcon" destination="VCk-lV-1yh" id="uba-ye-CNC"/>
                 <outlet property="url" destination="qr5-Eq-Jjz" id="SEM-Od-hNa"/>

@@ -29,14 +29,6 @@ struct MonitorTableCellVM {
         return item.serviceItem.url.absoluteString.toAttributed()
     }
 
-    var timeChecked: NSAttributedString {
-        let postFix = "Last checked: ".toAttributed()
-        if let time = item.time {
-            return postFix + time.localizedDescription(dateStyle: .none, timeStyle: .medium).toAttributed()
-        }
-        return "".toAttributed()
-    }
-
     var icon: UIImage? {
         switch item.isOK {
         case true: return UIImage(named: "up")

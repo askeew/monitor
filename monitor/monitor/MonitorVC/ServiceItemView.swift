@@ -12,13 +12,10 @@ import Domain
 class ServiceItemView {
     let serviceItem: ServiceItem
     var isOK: Bool?
-    var time: Date?
 
     init(serviceItem: ServiceItem,
-                isOK: Bool? = false,
-                time: Date? = nil) {
+                isOK: Bool? = false) {
         self.serviceItem = serviceItem
         self.isOK = isOK
-        self.time = time
     }
 }

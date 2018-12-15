@@ -11,7 +11,7 @@ import RestAPI
 import Domain
 
 protocol RefreshDelegate: class {
-    func refresh()
+    func refresh(time: Date)
 }
 
 final class MonitorVM {
@@ -26,7 +26,7 @@ final class MonitorVM {
 
     public func fetchData() {
         services = [ServiceItemView]()
-        services = repo.getAll().map { ServiceItemView(serviceItem: $0, isOK: nil, time: nil) }
+        services = repo.getAll().map { ServiceItemView(serviceItem: $0, isOK: nil) }
     }
 
     public func add(name: String, url: URL) {
@@ -40,7 +40,6 @@ final class MonitorVM {
     }
 
     @objc public func checkServices() {
-        //TODO loading
         let group = DispatchGroup()
         services.forEach { item in
             group.enter()
@@ -50,12 +49,11 @@ final class MonitorVM {
                 } else {
                     item.isOK = false
                 }
-                item.time = Date()
                 group.leave()
             }
             task.resume()
         }
         group.wait()
-        refreshDelegate?.refresh()
+        refreshDelegate?.refresh(time: Date())
     }
 }

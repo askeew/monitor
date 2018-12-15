@@ -23,7 +23,6 @@ class MonitorVMTests: XCTestCase {
         XCTAssertEqual(vm.services.count, 1)
         XCTAssertEqual(vm.services[0].serviceItem.name, "item1")
         XCTAssertNil(vm.services[0].isOK)
-        XCTAssertNil(vm.services[0].time)
     }
 
     func testGivenDataExistsInRepo_checkServices_addsTimestampAndStatusToData() {
@@ -36,7 +35,6 @@ class MonitorVMTests: XCTestCase {
         XCTAssertEqual(vm.services.count, 1)
         XCTAssertEqual(vm.services[0].serviceItem.name, "item1")
         XCTAssertEqual(vm.services[0].isOK, false)
-        XCTAssertNotNil(vm.services[0].time)
     }
 
 
