@@ -8,33 +8,53 @@
 
 import UIKit
 
+//TODO add loaderView
 class MonitorVC: UITableViewController {
 
+    private static let timeInterval: TimeInterval = 60
     private let viewModel = MonitorVM()
+    private var updateUITimer: Timer? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTable()
         setupNavbar()
-        reload()
+        viewModel.refreshDelegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchData()
+        statusCheck()
+        setupTimer()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        updateUITimer?.invalidate()
+    }
+
+    private func setupTimer() {
+        updateUITimer = Timer.scheduledTimer(timeInterval: MonitorVC.timeInterval, target: self, selector: #selector(statusCheck), userInfo: nil, repeats: true)
     }
 
     private func setupTable() {
+        //TODO put 'last-checked-time as table-view-footer' instead of in cell
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UINib(nibName: "MonitorTableCell", bundle: nil), forCellReuseIdentifier: "MonitorTableCell")
     }
 
-    private func reload() {
-        viewModel.fetchData { [weak self] in
-            self?.tableView.reloadData()
-        }
+    @objc private func statusCheck() {
+        viewModel.checkServices()
     }
 
     private func setupNavbar() {
         let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
-        navigationItem.rightBarButtonItems = [addBarButtonItem]
+        let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(statusCheck))
+        navigationItem.rightBarButtonItem = addBarButtonItem
+        navigationItem.leftBarButtonItem = refreshBarButtonItem
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Service Monitor"
+        title = "Heartbeat"
     }
 
     // Input validation
@@ -49,14 +69,14 @@ class MonitorVC: UITableViewController {
         guard let alertController = responder as? UIAlertController else { return }
 
         //check not empty textfields
-        if alertController.textFields?[safe: 0]?.text?.isEmpty == false &&
-            alertController.textFields?[safe: 1]?.text?.isEmpty == false {
-            alertController.actions[safe: 1]?.isEnabled = true
-        } else {
-            alertController.actions[safe: 1]?.isEnabled = false
+        guard alertController.textFields?[safe: 0]?.text?.isEmpty == false &&
+            alertController.textFields?[safe: 1]?.text?.isEmpty == false
+            else {
+                alertController.actions[safe: 1]?.isEnabled = false
+                return
         }
 
-        //TODO add check for valid url
+        alertController.actions[safe: 1]?.isEnabled = true
     }
 
     @objc func addItem() {
@@ -69,16 +89,17 @@ class MonitorVC: UITableViewController {
 
         }
         alertController.addTextField { textField in
-            textField.placeholder = "URL"
+            textField.placeholder = "Domain name"
             textField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
         }
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] alertAction in
+            let protocolSuffix = "http://"
             guard let name = alertController.textFields?[safe: 0]?.text,
-                let url = alertController.textFields?[safe: 1]?.text,
-                let URL = URL(string: url),
+                let urlString = alertController.textFields?[safe: 1]?.text,
+                let URL = URL(string: protocolSuffix + urlString),
                 let self = self else { return }
             self.viewModel.add(name: name, url: URL)
-            self.tableView.reloadData()
+            self.statusCheck()
         }))
         alertController.actions[safe: 1]?.isEnabled = false
         present(alertController, animated: true)
@@ -88,23 +109,36 @@ class MonitorVC: UITableViewController {
 extension MonitorVC {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.items.count
+        return viewModel.services.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
-        guard let itemForCell = viewModel.items[safe: indexPath.row] else { return UITableViewCell() }
-        cell.textLabel?.text = itemForCell.name
-        cell.detailTextLabel?.attributedText = itemForCell.url.absoluteString.toAttributed(color: .gray)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MonitorTableCell", for: indexPath) as? MonitorTableCell else { return UITableViewCell() }
+
+        guard let model = viewModel.services[safe: indexPath.row] else { return UITableViewCell() }
+        let cellVM = MonitorTableCellVM(item: model) { [weak self] in
+            let alertController = UIAlertController(title: "URL", message: model.serviceItem.url.absoluteString, preferredStyle: .alert)
+
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+            self?.present(alertController, animated: true)
+        }
+        cell.newModel(model: cellVM)
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let itemForCell = viewModel.items[safe: indexPath.row] else { return }
-            viewModel.delete(id: itemForCell.id)
+            guard let itemForCell = viewModel.services[safe: indexPath.row] else { return }
+            viewModel.delete(id: itemForCell.serviceItem.id)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+}
+
+extension MonitorVC: RefreshDelegate {
+    func refresh() {
+        tableView.reloadData()
     }
 }
 

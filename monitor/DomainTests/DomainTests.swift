@@ -16,6 +16,6 @@ class DomainTests: XCTestCase {
         XCTAssertNotNil(item)
         XCTAssertEqual(item.id.description, "id")
         XCTAssertEqual(item.name, "name")
-        XCTAssertEqual(item.url.absoluteString, "file:///url")
+        XCTAssertTrue(item.url.absoluteString.contains("url"))
     }
 }

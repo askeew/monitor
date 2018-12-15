@@ -7,6 +7,7 @@
 //
 
 import Foundation
+///Typesafe identifier for string
 public struct Identifier<T>: Hashable {
 
     public let string: String
