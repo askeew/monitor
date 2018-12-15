@@ -8,7 +8,6 @@
 
 import UIKit
 
-//TODO add loaderView
 class MonitorVC: UITableViewController {
 
     private static let timeInterval: TimeInterval = 60
@@ -19,6 +18,7 @@ class MonitorVC: UITableViewController {
         super.viewDidLoad()
         setupTable()
         setupNavbar()
+        setupRefreshControl()
         viewModel.refreshDelegate = self
     }
 
@@ -37,11 +37,18 @@ class MonitorVC: UITableViewController {
         updateUITimer = Timer.scheduledTimer(timeInterval: MonitorVC.timeInterval, target: self, selector: #selector(statusCheck), userInfo: nil, repeats: true)
     }
 
+    private func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(statusCheck), for: .valueChanged)
+    }
+
     private func setupTable() {
         //TODO put 'last-checked-time as table-view-footer' instead of in cell
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MonitorTableCell", bundle: nil), forCellReuseIdentifier: "MonitorTableCell")
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = 50
     }
 
     @objc private func statusCheck() {
@@ -50,9 +57,7 @@ class MonitorVC: UITableViewController {
 
     private func setupNavbar() {
         let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
-        let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(statusCheck))
         navigationItem.rightBarButtonItem = addBarButtonItem
-        navigationItem.leftBarButtonItem = refreshBarButtonItem
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Heartbeat"
     }
@@ -139,6 +144,7 @@ extension MonitorVC {
 extension MonitorVC: RefreshDelegate {
     func refresh() {
         tableView.reloadData()
+        refreshControl?.endRefreshing()
     }
 }
 
