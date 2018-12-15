@@ -141,13 +141,9 @@ extension MonitorVC {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MonitorTableCell", for: indexPath) as? MonitorTableCell else { return UITableViewCell() }
-
         guard let model = viewModel.services[safe: indexPath.row] else { return UITableViewCell() }
-        let cellVM = MonitorTableCellVM(item: model) { [weak self] in
-            let alertController = UIAlertController(title: "URL", message: model.serviceItem.url.absoluteString, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self?.present(alertController, animated: true)
-        }
+
+        let cellVM = MonitorTableCellVM(item: model)
         cell.newModel(model: cellVM)
         return cell
     }

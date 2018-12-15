@@ -14,19 +14,23 @@ class MonitorTableCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var statusIcon: UIImageView!
     @IBOutlet weak var url: UILabel!
-    private var onSelect: (() -> Void)?
 
     public func newModel(model: MonitorTableCellVM) {
+        selectionStyle = .none
         name.attributedText = model.name
         statusIcon.image = model.icon
         url.attributedText = model.url
         url.isHidden = true
-        onSelect = model.onSelect
+        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(tapHandler(gesture:)))
+        tapRecognizer.minimumPressDuration = 0.05
+        addGestureRecognizer(tapRecognizer)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        if selected {
-            onSelect?()
+    @objc func tapHandler(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            url.isHidden = false
+        } else if gesture.state == .ended {
+            url.isHidden = true
         }
     }
 }

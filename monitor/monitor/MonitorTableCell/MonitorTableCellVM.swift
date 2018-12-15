@@ -14,11 +14,9 @@ import Domain
 struct MonitorTableCellVM {
 
     private let item: ServiceItemView
-    let onSelect: (() -> Void)?
 
-    init(item: ServiceItemView, onSelect: (() -> Void)?) {
+    init(item: ServiceItemView) {
         self.item = item
-        self.onSelect = onSelect
     }
 
     var name: NSAttributedString {

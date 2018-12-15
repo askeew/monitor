@@ -26,19 +26,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XRL-VS-6Ve">
-                                <rect key="frame" x="184.5" y="0.0" width="252.5" height="222.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XRL-VS-6Ve">
+                                <rect key="frame" x="375" y="0.0" width="62" height="222.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="url" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qr5-Eq-Jjz" userLabel="url">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="222.5"/>
+                                        <rect key="frame" x="0.0" y="101" width="20" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="up" translatesAutoresizingMaskIntoConstraints="NO" id="VCk-lV-1yh">
-                                        <rect key="frame" x="30" y="0.0" width="222.5" height="222.5"/>
+                                        <rect key="frame" x="30" y="95.5" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" priority="750" constant="50" id="INu-Cf-N8P"/>
+                                            <constraint firstAttribute="width" priority="750" constant="30" id="INu-Cf-N8P"/>
                                             <constraint firstAttribute="width" secondItem="VCk-lV-1yh" secondAttribute="height" multiplier="1:1" id="WNw-c5-RLe"/>
                                         </constraints>
                                     </imageView>
