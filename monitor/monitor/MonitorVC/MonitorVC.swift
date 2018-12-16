@@ -107,7 +107,7 @@ class MonitorVC: UITableViewController {
     }
 
     @objc func addItem() {
-        let alertController = UIAlertController(title: "Add service", message: "Give the service a name and supply it's URL", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Add service", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertController.addTextField { [weak self] textField in
             guard let self = self else { return }
