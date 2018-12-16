@@ -20,11 +20,11 @@ struct MonitorTableCellVM {
     }
 
     var name: NSAttributedString {
-        return item.serviceItem.name.toAttributed(font: UIFont.systemFont(ofSize: 16), color: .black)
+        return item.name.toAttributed(font: UIFont.systemFont(ofSize: 16), color: .black)
     }
 
     var url: NSAttributedString {
-        return item.serviceItem.url.absoluteString.toAttributed()
+        return item.url.absoluteString.toAttributed()
     }
 
     var icon: UIImage? {

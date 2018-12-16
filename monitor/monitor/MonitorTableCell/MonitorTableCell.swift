@@ -22,7 +22,7 @@ class MonitorTableCell: UITableViewCell {
         url.attributedText = model.url
         url.isHidden = true
         let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(tapHandler(gesture:)))
-        tapRecognizer.minimumPressDuration = 0.05
+        tapRecognizer.minimumPressDuration = 0.1
         addGestureRecognizer(tapRecognizer)
     }
 

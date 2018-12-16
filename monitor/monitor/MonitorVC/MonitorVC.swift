@@ -12,7 +12,7 @@ class MonitorVC: UITableViewController {
 
     private static let timeInterval: TimeInterval = 60
     private let viewModel = MonitorVM()
-    private var updateUITimer: Timer? = nil
+    private var updateUITimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,7 +151,7 @@ extension MonitorVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let itemForCell = viewModel.services[safe: indexPath.row] else { return }
-            viewModel.delete(id: itemForCell.serviceItem.id)
+            viewModel.delete(id: itemForCell.id)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

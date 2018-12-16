@@ -26,7 +26,10 @@ final class MonitorVM {
 
     public func fetchData() {
         services = [ServiceItemView]()
-        services = repo.getAll().map { ServiceItemView(serviceItem: $0, isOK: nil) }
+        services = repo.getAll().map { ServiceItemView(id: $0.id.description,
+                                                       name: $0.name,
+                                                       url: $0.url,
+                                                       isOK: nil) }
     }
 
     public func add(name: String, url: URL) {
@@ -34,8 +37,8 @@ final class MonitorVM {
         fetchData()
     }
 
-    public func delete(id: Identifier<ServiceItem>) {
-        repo.delete(id: id)
+    public func delete(id: String) {
+        repo.delete(id: Identifier<ServiceItem>(id))
         fetchData()
     }
 
@@ -43,7 +46,7 @@ final class MonitorVM {
         let group = DispatchGroup()
         services.forEach { item in
             group.enter()
-            let task = URLSession.shared.dataTask(with: item.serviceItem.url) { _, response, _ in
+            let task = URLSession.shared.dataTask(with: item.url) { _, response, _ in
                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
                     item.isOK = true
                 } else {

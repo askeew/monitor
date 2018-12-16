@@ -10,12 +10,19 @@ import Foundation
 import Domain
 
 class ServiceItemView {
-    let serviceItem: ServiceItem
+
+    public let id: String
+    public let name: String
+    public let url: URL
     var isOK: Bool?
 
-    init(serviceItem: ServiceItem,
-                isOK: Bool? = false) {
-        self.serviceItem = serviceItem
+    init(id: String,
+         name: String,
+         url: URL,
+         isOK: Bool? = false) {
+        self.id = id
+        self.name = name
+        self.url = url
         self.isOK = isOK
     }
 }

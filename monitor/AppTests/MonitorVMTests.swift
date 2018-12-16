@@ -21,7 +21,7 @@ class MonitorVMTests: XCTestCase {
         XCTAssertEqual(vm.services.count, 0)
         vm.fetchData()
         XCTAssertEqual(vm.services.count, 1)
-        XCTAssertEqual(vm.services[0].serviceItem.name, "item1")
+        XCTAssertEqual(vm.services[0].name, "item1")
         XCTAssertNil(vm.services[0].isOK)
     }
 
@@ -33,7 +33,7 @@ class MonitorVMTests: XCTestCase {
         vm.fetchData()
         vm.checkServices()
         XCTAssertEqual(vm.services.count, 1)
-        XCTAssertEqual(vm.services[0].serviceItem.name, "item1")
+        XCTAssertEqual(vm.services[0].name, "item1")
         XCTAssertEqual(vm.services[0].isOK, false)
     }
 
@@ -44,7 +44,7 @@ class MonitorVMTests: XCTestCase {
         vm.add(name: "item1", url: URL(fileURLWithPath: "url1"))
 
         XCTAssertEqual(vm.services.count, 1)
-        XCTAssertEqual(vm.services[0].serviceItem.name, "item1")
+        XCTAssertEqual(vm.services[0].name, "item1")
         XCTAssertNil(vm.services[0].isOK)
     }
 
@@ -55,7 +55,7 @@ class MonitorVMTests: XCTestCase {
         let vm = MonitorVM(repo: repo)
         vm.fetchData()
         XCTAssertEqual(vm.services.count, 1)
-        vm.delete(id: item.id)
+        vm.delete(id: item.id.description)
         XCTAssertEqual(vm.services.count, 0)
     }
 }
