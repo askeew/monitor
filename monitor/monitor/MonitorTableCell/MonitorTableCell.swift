@@ -18,9 +18,11 @@ class MonitorTableCell: UITableViewCell {
     public func newModel(model: MonitorTableCellVM) {
         selectionStyle = .none
         name.attributedText = model.name
-        statusIcon.image = model.icon
+        name.accessibilityLabel = "\(model.name.string) \(model.isOK)"
         url.attributedText = model.url
         url.isHidden = true
+        statusIcon.image = model.icon
+
         let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(tapHandler(gesture:)))
         tapRecognizer.minimumPressDuration = 0.1
         addGestureRecognizer(tapRecognizer)

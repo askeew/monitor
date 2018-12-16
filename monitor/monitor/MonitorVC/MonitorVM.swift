@@ -29,7 +29,7 @@ final class MonitorVM {
         services = repo.getAll().map { ServiceItemView(id: $0.id.description,
                                                        name: $0.name,
                                                        url: $0.url,
-                                                       isOK: nil) }
+                                                       isOK: false) }
     }
 
     public func add(name: String, url: URL) {

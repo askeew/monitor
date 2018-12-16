@@ -34,4 +34,15 @@ extension XCUIApplication {
     var addServiceOKButton: XCUIElement {
         return alerts["Add service"].buttons["OK"]
     }
+
+    var checkedTimeLabel: XCUIElement {
+        return tables.staticTexts.element(boundBy: 0)
+    }
+
+    func timeLabelToDate(_ text: String) -> Date? {
+        let timeString = text.components(separatedBy: "Last checked: ")[1]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter.date(from: timeString)
+    }
 }

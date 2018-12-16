@@ -14,12 +14,12 @@ class ServiceItemView {
     public let id: String
     public let name: String
     public let url: URL
-    var isOK: Bool?
+    var isOK: Bool
 
     init(id: String,
          name: String,
          url: URL,
-         isOK: Bool? = false) {
+         isOK: Bool) {
         self.id = id
         self.name = name
         self.url = url

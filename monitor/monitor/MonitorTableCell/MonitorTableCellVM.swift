@@ -28,11 +28,14 @@ struct MonitorTableCellVM {
     }
 
     var icon: UIImage? {
-        switch item.isOK {
+        switch isOK {
         case true: return UIImage(named: "up")
         case false: return UIImage(named: "down")
-        default: return nil
         }
+    }
+
+    var isOK: Bool {
+        return item.isOK
     }
 }
 

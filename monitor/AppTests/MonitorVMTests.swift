@@ -13,7 +13,7 @@ import XCTest
 
 class MonitorVMTests: XCTestCase {
 
-    func testGivenDataExistsInRepo_fetchDataDeliversIt_withNoStatusUpdates() {
+    func testGivenDataExistsInRepo_fetchDataDeliversIt() {
         let repo = InMemoryRepo()
         _ = repo.add(name: "item1", url: URL(fileURLWithPath: "url1"))
 
@@ -22,7 +22,7 @@ class MonitorVMTests: XCTestCase {
         vm.fetchData()
         XCTAssertEqual(vm.services.count, 1)
         XCTAssertEqual(vm.services[0].name, "item1")
-        XCTAssertNil(vm.services[0].isOK)
+        XCTAssertFalse(vm.services[0].isOK)
     }
 
     func testGivenDataExistsInRepo_checkServices_addsTimestampAndStatusToData() {
@@ -45,7 +45,6 @@ class MonitorVMTests: XCTestCase {
 
         XCTAssertEqual(vm.services.count, 1)
         XCTAssertEqual(vm.services[0].name, "item1")
-        XCTAssertNil(vm.services[0].isOK)
     }
 
     func testGivenDataExistsInRepo_delete_itemIsDeleted() {

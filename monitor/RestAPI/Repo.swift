@@ -23,8 +23,7 @@ public class UserDefaultsRepo: CRUD {
     }
 
     public func getAll() -> [ServiceItem] {
-        guard let item: [ServiceItem]? = readValue(key: key), let serviceItem = item else { return [] }
-        return serviceItem
+        return readValue(key: key) ?? [ServiceItem]()
     }
 
     public func add(name: String, url: URL) -> ServiceItem {
